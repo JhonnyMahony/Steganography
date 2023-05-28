@@ -4,9 +4,10 @@ import tkinter.messagebox
 import os
 import sys
 text = ""
-#парареметри головного вікна
+
+# main window
+
 window = tk.Tk()
-#window['background']='#856ff8'
 window["bg"] = "gray65"
 window.title("Спеціальний програмний засіб приховування службових данних")
 width = 400
@@ -15,21 +16,28 @@ x = 750
 y = 300
 window.geometry(f'{width}x{height}+{x}+{y}')
 window.resizable(False,False)
-#window.iconbitmap("stegano_icon.ico")
-#functions
-#for Radiobuttons
+
+# window.iconbitmap("stegano_icon.ico")
+# functions
+# for Radiobuttons
+
 global degree
 degree = 1
+
+
 def proverka_scolko_pomestitca_text():
     try:
         text_len = os.stat(choice_text).st_size
         label2 = tk.Label(window, text =f"Обсяг символів документу {text_len} символів", bg = "green",relief = tk.RAISED).place(x=0,y=170,width = 400, height=30)
     except:
         tk.messagebox.showwarning("Увага!","Оберіть документ")
+        
+        
 def select_level_seria():
     global choice_seria
     choice_seria = level_seria.get()
     return choice_seria
+
 #for buttons
 def get_picture():
     global choice_picture
@@ -78,6 +86,8 @@ def proverka_scolko_pomestitca():
         tk.messagebox.showwarning("Увага!","Оберіть зображення")
     except:
         tk.messagebox.showerror("Помилка","Помилка")
+        
+        
 def encrypt():
     try:
         
@@ -156,6 +166,7 @@ def encrypt():
     except:
         tk.messagebox.showerror("Помилка","Помилка")
         
+        
 def decrypt():
     try:
         text = open("decoded.txt","w")
@@ -214,6 +225,8 @@ def decrypt():
         tk.messagebox.showwarning("Увага!","Оберіть зображення, bit чи seria")
     except:
         tk.messagebox.showerror("Помилка","Помилка")
+        
+        
 def create_masks(degree):
     text_mask = 0b11111111
     img_mask = 0b11111111
@@ -227,18 +240,20 @@ def create_masks(degree):
 
 
 
+# Widget options
+
 
 level_seria = tk.IntVar()
 
 Rbtn3=tk.Radiobutton(window, text = "1 seria",variable=level_seria,value=1,command=select_level_seria,bg = "gray65")
 Rbtn4=tk.Radiobutton(window, text = "2 seria",variable=level_seria,value=2,command=select_level_seria,bg = "gray65")
 Rbtn5=tk.Radiobutton(window, text = "3 seria",variable=level_seria,value=3,command=select_level_seria,bg = "gray65")
-#Параметри віджетів
+
+
 label1 = tk.Label(window, text ="Спеціальний програмний засіб\nприховування службових данних",relief = tk.RAISED,bg = "gray65") #fg = "blue", колір текту, font = ("Verdana",9) Тип і розмір тексту, justify=CENTER, вирівнювання тексту relief=SUNKEN, bd=3
 label3 = tk.Label(window, text ="",relief = tk.RAISED,bg = "gray65")
     
 btn1 = tk.Button(window, text='Розміри зображення',command = proverka_scolko_pomestitca,bg = "gray65")
-#btn1 = Button(window, text='Перевірити розміри', command= get_file_name)
 btn6 = tk.Button(window, text='Розміри тексту',command = proverka_scolko_pomestitca_text,bg = "gray65")
 btn2 = tk.Button(window, text='Закодувати',command = encrypt,bg = "gray65")
 btn3 = tk.Button(window, text='Розкодувати',command = decrypt,bg = "gray65")
@@ -246,7 +261,7 @@ btn4 = tk.Button(window, text='Обрати зображення',command = get_
 btn5 = tk.Button(window, text='Обрати документ',command = get_text,bg = "gray65")
 
 
-#Запуск віджетів
+# Running widgets
 btn4.place(x=0,y=45,width = 200, height=30)
 btn5.place(x=200,y=45,width = 200, height=30)
 btn6.place(x=0,y=135,width = 200, height=30)
